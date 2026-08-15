@@ -1,0 +1,10 @@
+.DS_Store
+.gradle/
+**/build/
+dist/
+local.properties
+*.apk
+*.apkm
+*.zip
+*.png
+*.log
