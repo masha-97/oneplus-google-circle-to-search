@@ -1,4 +1,4 @@
-# 1+15实现Gemini一圈即搜（root方案）
+# 一加手机实现谷歌一圈即搜
 
 **简体中文** | [English](README.en.md)
 
