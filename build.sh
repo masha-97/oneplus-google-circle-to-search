@@ -7,6 +7,7 @@ DIST_DIR="$PROJECT_DIR/dist"
 "$PROJECT_DIR/gradlew" --no-daemon clean :app:assembleRelease :app:lintRelease
 "$PROJECT_DIR/tests/test_compat_contract.sh"
 "$PROJECT_DIR/tests/test_publication.sh"
+"$PROJECT_DIR/tests/test_installer_contract.sh"
 
 mkdir -p "$DIST_DIR"
 cp "$PROJECT_DIR/app/build/outputs/apk/release/app-release.apk" \

@@ -54,7 +54,33 @@ Artifacts are written to `dist/`:
 
 The APK currently uses the local Android debug signing configuration. Use a private release key for redistributed production builds; never commit that key.
 
-## Install
+## Assisted deployment for a rooted matching device
+
+The repository includes a host-side assistant that consolidates device and dependency checks, Release integrity verification, compatibility APK installation, and KernelSU ZIP preparation. It does not bypass the security confirmation of Xposed or KernelSU Manager, so this is an honest guided single-command flow rather than a silent root installer.
+
+Use a Mac or Linux computer with USB debugging enabled and Android platform-tools (`adb`) installed. Start with the read-only check:
+
+```sh
+git clone https://github.com/masha-97/oneplus-google-circle-to-search.git
+cd oneplus-google-circle-to-search
+./tools/plk110-assistant.sh check
+```
+
+Then download `contextual-search-compat-v1.2.2.apk`, `contextual-sidekey-plk110-v1.0.0.zip`, and `SHA256SUMS` from the [v1.0.0 Release](https://github.com/masha-97/oneplus-google-circle-to-search/releases/tag/v1.0.0) into the same directory, then run:
+
+```sh
+./tools/plk110-assistant.sh install ./release-assets
+```
+
+After you type `INSTALL`, `install` installs only the compatibility APK and copies the verified KernelSU ZIP to `Download/`. Follow its terminal prompts to enable the two static Xposed scopes, reboot, import the ZIP in KernelSU Manager, and reboot again. Afterwards run:
+
+```sh
+./tools/plk110-assistant.sh verify
+```
+
+The assistant rejects a mismatched model, build, ABI, root/KernelSU state, or Google dynamic feature set before it makes a device change.
+
+## Manual install
 
 1. Install the compatibility APK in a libxposed API 102 compatible framework and enable its static scopes: `system` and `com.google.android.googlequicksearchbox`.
 2. Reboot and verify the service: `adb shell service check contextual_search`.
